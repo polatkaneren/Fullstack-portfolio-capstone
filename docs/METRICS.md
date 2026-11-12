@@ -10,4 +10,6 @@
 
 ## Weekly Progress Log
 * **Week 2 Status:** Initializing backend server and defining routes.
+* **11/12/2026 - Backend & CORS Setup:** Initialized Node.js Express server, created API routes, and configured CORS middleware.
+* **11/12/2026 - Frontend UI & Integration:** Created styled HTML/JS frontend fetching live data from `http://localhost:5000`.
 * **Week 3 Status:** Deployment, final testing, and metrics audit.
