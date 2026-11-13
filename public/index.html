@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Portfolio of Polatkan Eren Polat: full-stack web projects." />
+    <!-- Leave empty when this server also serves the API. Set to e.g.
+         https://api.example.com if the API is hosted somewhere else. -->
+    <meta name="api-base" content="" />
+    <title>Polatkan Eren Polat · Portfolio</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header">
+      <div class="container nav">
+        <a class="brand" href="#top">PEP</a>
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero" id="top">
+        <div class="container">
+          <p class="eyebrow">Full-stack developer</p>
+          <h1>Hi, I'm Polatkan Eren Polat.</h1>
+          <p class="lead">
+            I build web applications end to end, from REST APIs in Node.js and Express to
+            accessible frontends, and I document how they work.
+          </p>
+          <div class="hero-actions">
+            <a class="button" href="#projects">See my work</a>
+            <a class="button button-secondary" href="#contact">Get in touch</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="projects" aria-labelledby="projects-title">
+        <div class="container">
+          <h2 id="projects-title">Projects</h2>
+          <div class="filters" id="filters" role="group" aria-label="Filter projects by technology"></div>
+          <p class="status" id="projects-status" role="status">Loading projects…</p>
+          <ul class="project-grid" id="project-list"></ul>
+        </div>
+      </section>
+
+      <section class="section section-alt" id="contact" aria-labelledby="contact-title">
+        <div class="container narrow">
+          <h2 id="contact-title">Contact</h2>
+          <p>Have a question or an opportunity? Send me a message.</p>
+
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required />
+              <p class="field-error" id="name-error"></p>
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="254" required />
+              <p class="field-error" id="email-error"></p>
+            </div>
+            <div class="field">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" minlength="10" maxlength="5000" required></textarea>
+              <p class="field-error" id="message-error"></p>
+            </div>
+            <!-- Honeypot: hidden from people, bots tend to fill it in. -->
+            <div class="hp" aria-hidden="true">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+            <button class="button" type="submit">Send message</button>
+            <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>
+          © <span id="year"></span> Polatkan Eren Polat ·
+          <a href="https://github.com/polatkaneren/fullstack-portfolio-capstone">Source on GitHub</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
