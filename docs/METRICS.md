@@ -2,14 +2,29 @@
 
 ## Weekly Goals & Baselines
 * **Target Commit Frequency:** 3–5 meaningful commits per active coding day.
-* **Planned API Endpoints:** 
+* **Planned API Endpoints:**
   * `GET /api/projects` (Fetch portfolio projects)
   * `POST /api/contact` (Handle contact form submissions)
 * **Target Test Coverage:** Minimum 70% component/unit test coverage.
 * **Documentation Completion Rate:** Tracked weekly across setup, architecture, and deployment guides.
 
+## Current Metrics (as of 11/13/2026)
+
+| Metric | Target | Current | Status |
+|---|---|---|---|
+| Planned API endpoints implemented | 2 | 2 of 2 (plus `GET /api/projects/:id` and `GET /api/health`) | Met |
+| Automated tests | n/a | 38 passing | n/a |
+| Line coverage | ≥ 70% | 100% | Met |
+| Branch coverage | ≥ 70% | 86% | Met |
+| Documentation: README | Complete | Complete | Met |
+| Documentation: setup guide | Complete | Not started | Open |
+| Documentation: architecture guide | Complete | Not started | Open |
+| Documentation: deployment guide | Complete | Not started | Open |
+| Deployed live site | Live URL | Not deployed | Open |
+
 ## Weekly Progress Log
-* **Week 2 Status:** Initializing backend server and defining routes.
-* **11/12/2026 - Backend & CORS Setup:** Initialized Node.js Express server, created API routes, and configured CORS middleware.
-* **11/12/2026 - Frontend UI & Integration:** Created styled HTML/JS frontend fetching live data from `http://localhost:5000`.
-* **Week 3 Status:** Deployment, final testing, and metrics audit.
+* **Week 1 (11/5–11/11):** Submitted the project proposal. Created the repository and README.
+* **Week 2 (11/12–11/18):**
+  * **11/12/2026:** Created this metrics tracker with goals and baselines.
+  * **11/13/2026 - Backend, frontend and tests:** Built the Express server with `GET /api/projects` and `POST /api/contact`, CORS, security headers, input validation and rate limiting. Built the HTML/CSS/JS frontend, served by the same server so it calls the API at `/api` instead of a hard-coded `localhost` address. Added 38 Jest + Supertest tests, a GitHub Actions CI pipeline and a README. Testing in a real browser found a bug (the contact form was rejected by the CORS check on same-origin requests); it was fixed and a test now covers it. Development used an AI coding assistant (Claude Code), as permitted by the course syllabus.
+* **Week 3 (11/19–11/25) - Planned:** Write the setup, architecture and deployment guides; deploy the site; replace sample projects with real ones; final metrics audit.
