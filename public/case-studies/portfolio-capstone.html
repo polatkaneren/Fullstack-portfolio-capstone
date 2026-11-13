@@ -1,0 +1,326 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Case study: how a documented full-stack portfolio was planned, built, tested and measured in three weeks."
+    />
+    <title>Case Study: Portfolio Capstone · Polatkan Eren Polat</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap"
+    />
+    <link rel="stylesheet" href="../styles.css" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <header class="site-header band-navy">
+      <div class="container nav">
+        <a class="brand" href="../index.html#top" aria-label="Home">PEP</a>
+        <nav aria-label="Main">
+          <ul>
+            <li><a href="../index.html#projects">Projects</a></li>
+            <li><a href="../index.html#case-studies">Writing</a></li>
+            <li><a href="../index.html#skills">Skills</a></li>
+            <li><a href="../index.html#contact">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <header class="article-hero band-navy">
+        <div class="container">
+          <a class="back-link mono" href="../index.html#case-studies">← All case studies</a>
+          <p class="eyebrow mono">Case study</p>
+          <h1>Building a documented full-stack portfolio in three weeks</h1>
+          <p class="lead">
+            A portfolio site that is also a working full-stack application, planned around
+            measurable goals and documented so that someone else can run, test and extend it.
+          </p>
+          <dl class="fact-row">
+            <div><dt class="mono">Role</dt><dd>Developer and technical writer</dd></div>
+            <div><dt class="mono">Timeline</dt><dd>3 weeks, Nov 2026</dd></div>
+            <div><dt class="mono">Stack</dt><dd>Node.js, Express 5, JavaScript, Jest</dd></div>
+            <div><dt class="mono">Tools</dt><dd>GitHub Actions, Claude Code (AI assistant)</dd></div>
+          </dl>
+        </div>
+      </header>
+
+      <div class="article">
+        <div class="container article-layout">
+          <nav class="toc" aria-labelledby="toc-title">
+            <p class="mono" id="toc-title">Contents</p>
+            <ol>
+              <li><a href="#summary">Summary</a></li>
+              <li><a href="#problem">The problem</a></li>
+              <li><a href="#constraints">Constraints</a></li>
+              <li><a href="#architecture">Architecture</a></li>
+              <li><a href="#decisions">Key decisions</a></li>
+              <li><a href="#testing">Testing and the bug coverage missed</a></li>
+              <li><a href="#results">Results</a></li>
+              <li><a href="#documentation">Documentation approach</a></li>
+              <li><a href="#next">What's next</a></li>
+            </ol>
+          </nav>
+
+          <article class="prose">
+            <h2 id="summary">Summary</h2>
+            <div class="callout">
+              <p class="mono">In one paragraph</p>
+              <p>
+                I set out to build a portfolio with two API endpoints, at least 70% test coverage
+                and documentation good enough to reproduce the project. The finished app has four
+                endpoints, 39 automated tests with 100% line coverage, and a pipeline that runs the
+                tests on every push. The most useful lesson came from a failure: every test passed,
+                yet the contact form did not work in a real browser.
+              </p>
+            </div>
+
+            <h2 id="problem">The problem</h2>
+            <p>
+              A portfolio usually exists only to show other work. I wanted this one to be evidence in
+              itself: a real full-stack application with a backend, a frontend, tests and deployment
+              documentation. For the course, it also had to show a technical writing process, using
+              structured Markdown, version control and a project board to plan, build and document
+              the work.
+            </p>
+            <p>Before writing any code, I committed to measurable goals in a metrics file:</p>
+            <ul>
+              <li>Two API endpoints: <code>GET /api/projects</code> and <code>POST /api/contact</code>.</li>
+              <li>At least 70% automated test coverage.</li>
+              <li>Three to five meaningful commits per active coding day.</li>
+              <li>Setup, architecture and deployment guides, tracked weekly.</li>
+            </ul>
+            <p>
+              Writing the goals down first changed the work. Each goal became something a reader
+              can check against the repository, rather than a claim they have to trust.
+            </p>
+
+            <h2 id="constraints">Constraints</h2>
+            <ul>
+              <li><strong>Three weeks.</strong> Anything that did not serve the goals above was out of scope.</li>
+              <li>
+                <strong>Readable by a reviewer.</strong> A grader should be able to open any file and
+                follow it, without learning a framework or a build tool first.
+              </li>
+              <li><strong>One command to run.</strong> After installing, <code>npm start</code> should be the only step.</li>
+              <li>
+                <strong>Public input.</strong> The contact form accepts text from anyone on the
+                internet, so it needed validation and abuse protection from the start.
+              </li>
+            </ul>
+
+            <h2 id="architecture">Architecture</h2>
+            <p>
+              One Node.js process does two jobs: it serves the website's static files and answers
+              the JSON API under <code>/api</code>. Because the page and the API share an address,
+              the frontend calls relative paths such as <code>/api/projects</code> and works
+              unchanged on a laptop or a hosting service.
+            </p>
+
+            <figure class="diagram">
+              <div class="diagram-flow" role="img" aria-label="The browser sends requests to one Express server. The server applies security middleware, then routes API requests to the projects and contact handlers, and serves static files for everything else.">
+                <div class="node">
+                  <strong>Browser</strong>
+                  <span>HTML, CSS and JavaScript from <code>public/</code></span>
+                </div>
+                <div class="arrow" aria-hidden="true">→</div>
+                <div class="node node-navy">
+                  <strong>Express server</strong>
+                  <span>Helmet headers, CORS check, JSON body limit</span>
+                </div>
+                <div class="arrow" aria-hidden="true">→</div>
+                <div class="node">
+                  <strong>Routes</strong>
+                  <span><code>/api/projects</code>, <code>/api/contact</code>, <code>/api/health</code>, static files</span>
+                </div>
+                <div class="arrow" aria-hidden="true">→</div>
+                <div class="node">
+                  <strong>Data</strong>
+                  <span><code>projects.json</code> and the contact message store</span>
+                </div>
+              </div>
+              <figcaption>Figure 1. Request flow. Every request passes the same security middleware before reaching a route.</figcaption>
+            </figure>
+
+            <p>
+              The app is built by a function, <code>createApp()</code>, instead of being started
+              directly. A separate file starts the server. That split lets the tests build the whole
+              app in memory and send it requests without opening a network port.
+            </p>
+
+            <h2 id="decisions">Key decisions</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Decision</th>
+                    <th scope="col">Alternative</th>
+                    <th scope="col">Why</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>One server for the API and the website</td>
+                    <td>Host the frontend separately</td>
+                    <td>One thing to deploy, no hard-coded <code>localhost</code> address, and no cross-site configuration in the default setup.</td>
+                  </tr>
+                  <tr>
+                    <td>Plain JavaScript, no framework</td>
+                    <td>React with a build step</td>
+                    <td>The page is small. Reviewers can read the source exactly as the browser runs it.</td>
+                  </tr>
+                  <tr>
+                    <td>App factory, <code>createApp()</code></td>
+                    <td>Start the server inside the app file</td>
+                    <td>Tests run in memory, and parts like the message store can be swapped out.</td>
+                  </tr>
+                  <tr>
+                    <td>Messages kept in memory</td>
+                    <td>A database or an email service</td>
+                    <td>Out of scope for three weeks. The store sits behind one <code>add()</code> function, so replacing it later changes one file.</td>
+                  </tr>
+                  <tr>
+                    <td>Hidden honeypot field and rate limit</td>
+                    <td>A CAPTCHA</td>
+                    <td>Blocks simple spam bots without third-party scripts or extra steps for real visitors.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="testing">Testing and the bug coverage missed</h2>
+            <p>
+              The tests use Jest with Supertest, which sends real HTTP requests to the app in memory.
+              They cover successful responses, every validation rule, malformed and oversized
+              request bodies, the spam honeypot, the rate limit, security headers, and a failing
+              message store that must not leak its error details. The pipeline fails if coverage
+              drops below 70%.
+            </p>
+            <p>
+              After the first version, all 36 tests passed with 100% line coverage. Then I opened
+              the site in a real browser, filled in the contact form, and got
+              <em>“Origin not allowed.”</em>
+            </p>
+            <h3>What went wrong</h3>
+            <p>
+              The cross-origin (CORS) check allowed two cases: requests with no
+              <code>Origin</code> header, and origins on an allow-list. The tests sent no
+              <code>Origin</code> header, so they always passed. Browsers, however, attach an
+              <code>Origin</code> header to form submissions even when the page and the API share
+              an address. The server rejected its own website.
+            </p>
+            <h3>The fix</h3>
+            <p>
+              The check now also accepts a request whose <code>Origin</code> matches the server's
+              own host. I added two tests: one that sends a same-origin request the way a browser
+              does, and one that sends a malformed <code>Origin</code> header. The suite grew to 38
+              tests.
+            </p>
+            <h3>The lesson</h3>
+            <p>
+              Coverage measures which lines ran, not whether the tests describe how the software is
+              really used. Every line of the CORS check ran, but never with the input a browser
+              sends. Testing in a real browser is now a step in my process, not an afterthought.
+            </p>
+            <p>
+              A dependency audit during the same pass flagged a known vulnerability in the
+              rate-limiting package. Upgrading it left the production dependencies with zero
+              reported vulnerabilities.
+            </p>
+
+            <h2 id="results">Results</h2>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th scope="col">Metric</th>
+                    <th scope="col">Goal</th>
+                    <th scope="col">Result</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>API endpoints</td>
+                    <td class="num">2</td>
+                    <td class="num">4 (the 2 planned, plus project lookup by id and a health check)</td>
+                  </tr>
+                  <tr>
+                    <td>Automated tests</td>
+                    <td>No fixed goal</td>
+                    <td class="num">39 passing</td>
+                  </tr>
+                  <tr>
+                    <td>Line coverage</td>
+                    <td class="num">≥ 70%</td>
+                    <td class="num">100%</td>
+                  </tr>
+                  <tr>
+                    <td>Branch coverage</td>
+                    <td class="num">≥ 70%</td>
+                    <td class="num">86%</td>
+                  </tr>
+                  <tr>
+                    <td>Continuous integration</td>
+                    <td>Not planned</td>
+                    <td>Tests run on Node.js 20 and 22 on every push</td>
+                  </tr>
+                  <tr>
+                    <td>Documentation</td>
+                    <td>README and three guides</td>
+                    <td>README and this case study complete; guides in progress</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h2 id="documentation">Documentation approach</h2>
+            <p>
+              The README is written for someone who has just found the repository and wants to run
+              it. It answers questions in the order a new reader asks them:
+            </p>
+            <ol>
+              <li>What is this?</li>
+              <li>How do I run it?</li>
+              <li>How do I configure it?</li>
+              <li>What does the API accept and return?</li>
+              <li>Where is everything?</li>
+            </ol>
+            <p>
+              The API reference lists every status code with its meaning and an example body,
+              because a status code alone tells a reader nothing about what to fix. Limits that
+              affect users, such as message length and the rate limit, appear next to the endpoint
+              they belong to rather than in a separate section.
+            </p>
+            <p>
+              The metrics file is the project's log. It records the goals, the current numbers and a
+              dated entry for each work session, so the numbers in this case study can be traced to
+              where they were measured.
+            </p>
+
+            <h2 id="next">What's next</h2>
+            <ul>
+              <li>Deploy the site and write the deployment guide from the steps actually taken.</li>
+              <li>Write the setup and architecture guides.</li>
+              <li>Save contact messages permanently, in a database or by email.</li>
+              <li>Add automated browser tests, so a bug like the CORS failure is caught before a person finds it.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p>© 2026 Polatkan Eren Polat</p>
+        <p><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone">Source on GitHub</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

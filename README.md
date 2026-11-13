@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/polatkaneren/fullstack-portfolio-capstone/actions/workflows/ci.yml/badge.svg)](https://github.com/polatkaneren/fullstack-portfolio-capstone/actions/workflows/ci.yml)
 
-A personal portfolio website with a Node.js/Express REST API and a plain HTML, CSS and JavaScript frontend. Visitors can browse projects, filter them by technology, and send a message through a contact form.
+A personal portfolio website with a Node.js/Express REST API and a plain HTML, CSS and JavaScript frontend. Visitors can browse projects, read a long-form case study, review a skills matrix that links each skill to evidence, and send a message through a contact form.
 
 It is also the capstone project for a technical documentation course: progress and metrics are tracked in [`docs/METRICS.md`](docs/METRICS.md).
 
@@ -12,7 +12,9 @@ It is also the capstone project for a technical documentation course: progress a
 
 - **Projects API.** `GET /api/projects` lists projects and can filter them by tag.
 - **Contact API.** `POST /api/contact` validates messages and returns a clear error for each field.
-- **Responsive frontend** with automatic dark mode and keyboard and screen-reader support.
+- **Responsive frontend** in navy, white and black, with keyboard and screen-reader support.
+- **Case study** at `/case-studies/portfolio-capstone.html`: problem, constraints, architecture, decisions, testing and results.
+- **Skills matrix** that links each skill to the file in this repository that shows it.
 - **Security basics:** security headers (Helmet), a CORS allow-list, a rate limit on the contact form, a spam honeypot and a request size limit.
 - **Automated tests** (Jest + Supertest) that fail the build below 70% coverage.
 - **Continuous integration.** GitHub Actions runs the tests on every push.
@@ -78,6 +80,7 @@ Returns every project. Add `?tag=Express` to get only projects with that tag (ca
       "tags": ["Node.js", "Express", "JavaScript", "Jest"],
       "repoUrl": "https://github.com/polatkaneren/fullstack-portfolio-capstone",
       "liveUrl": null,
+      "caseStudyUrl": "case-studies/portfolio-capstone.html",
       "featured": true
     }
   ]
@@ -115,7 +118,8 @@ Returns `{ "status": "ok" }`. Hosting platforms use it to check that the server 
 
 ```
 ├── public/                 Frontend served to the browser
-│   ├── index.html
+│   ├── index.html          Home page: projects, case studies, skills, contact
+│   ├── case-studies/       Long-form case study pages
 │   ├── styles.css
 │   └── app.js              Loads projects and handles the contact form
 ├── src/                    Backend
@@ -134,7 +138,9 @@ Returns `{ "status": "ok" }`. Hosting platforms use it to check that the server 
 
 ## Editing your projects
 
-Projects live in [`src/data/projects.json`](src/data/projects.json). Add, edit or remove entries there and restart the server. Each entry needs a unique `id`, a `title`, a `summary` and a list of `tags`. `repoUrl` and `liveUrl` can be `null`.
+Projects live in [`src/data/projects.json`](src/data/projects.json). Add, edit or remove entries there and restart the server. Each entry needs a unique `id`, a `title`, a `summary` and a list of `tags`. `repoUrl`, `liveUrl` and `caseStudyUrl` can be `null`. Set `featured` to `true` to show a project as a wide card at the top.
+
+The skills matrix is plain HTML in `public/index.html` (the `#skills` section). Each row should link to evidence in the repository.
 
 ## Testing
 
@@ -146,9 +152,9 @@ The tests start the app in memory, so no running server is needed. The build fai
 
 ## Screenshots
 
-| Mobile | Dark mode | Form validation |
+| Case study | Mobile | Form validation |
 |---|---|---|
-| ![Mobile](docs/screenshots/mobile.png) | ![Dark mode](docs/screenshots/desktop-dark.png) | ![Validation errors](docs/screenshots/contact-errors.png) |
+| ![Case study page](docs/screenshots/case-study.png) | ![Mobile](docs/screenshots/mobile.png) | ![Validation errors](docs/screenshots/contact-errors.png) |
 
 ## License
 
