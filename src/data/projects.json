@@ -1,0 +1,29 @@
+[
+  {
+    "id": "fullstack-portfolio-capstone",
+    "title": "Full-Stack Portfolio Capstone",
+    "summary": "This site. An Express REST API with a vanilla JavaScript frontend, automated tests and continuous integration.",
+    "tags": ["Node.js", "Express", "JavaScript", "Jest"],
+    "repoUrl": "https://github.com/polatkaneren/fullstack-portfolio-capstone",
+    "liveUrl": null,
+    "featured": true
+  },
+  {
+    "id": "sample-project-one",
+    "title": "Sample Project One",
+    "summary": "Placeholder entry. Replace it with a real project in src/data/projects.json.",
+    "tags": ["JavaScript", "HTML", "CSS"],
+    "repoUrl": null,
+    "liveUrl": null,
+    "featured": false
+  },
+  {
+    "id": "sample-project-two",
+    "title": "Sample Project Two",
+    "summary": "Placeholder entry. Replace it with a real project in src/data/projects.json.",
+    "tags": ["Node.js", "REST API"],
+    "repoUrl": null,
+    "liveUrl": null,
+    "featured": false
+  }
+]
