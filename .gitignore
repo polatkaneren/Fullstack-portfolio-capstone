@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Environment variables (may hold secrets) - commit .env.example instead
+.env
+.env.*
+!.env.example
+
+# Test coverage output
+coverage/
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
