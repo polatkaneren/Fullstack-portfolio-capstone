@@ -26,6 +26,12 @@ describe('app', () => {
     expect(res.text).toMatch(/<title>.*Portfolio<\/title>/);
   });
 
+  test('serves the case study page', async () => {
+    const res = await request(app).get('/case-studies/portfolio-capstone.html');
+    expect(res.status).toBe(200);
+    expect(res.text).toMatch(/<h1>Building a documented full-stack portfolio/);
+  });
+
   test('sets security headers and hides the framework', async () => {
     const res = await request(app).get('/api/health');
     expect(res.headers['x-content-type-options']).toBe('nosniff');
