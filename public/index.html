@@ -3,23 +3,31 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Portfolio of Polatkan Eren Polat: full-stack web projects." />
+    <meta name="description" content="Portfolio of Polatkan Eren Polat: full-stack web projects, case studies and skills." />
     <!-- Leave empty when this server also serves the API. Set to e.g.
          https://api.example.com if the API is hosted somewhere else. -->
     <meta name="api-base" content="" />
     <title>Polatkan Eren Polat · Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&family=Space+Grotesk:wght@500;700&display=swap"
+    />
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="site-header">
+    <header class="site-header band-navy">
       <div class="container nav">
-        <a class="brand" href="#top">PEP</a>
+        <a class="brand" href="#top" aria-label="Home">PEP</a>
         <nav aria-label="Main">
           <ul>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#case-studies">Writing</a></li>
+            <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
           </ul>
         </nav>
@@ -27,36 +35,188 @@
     </header>
 
     <main id="main">
-      <section class="hero" id="top">
-        <div class="container">
-          <p class="eyebrow">Full-stack developer</p>
-          <h1>Hi, I'm Polatkan Eren Polat.</h1>
-          <p class="lead">
-            I build web applications end to end, from REST APIs in Node.js and Express to
-            accessible frontends, and I document how they work.
-          </p>
-          <div class="hero-actions">
-            <a class="button" href="#projects">See my work</a>
-            <a class="button button-secondary" href="#contact">Get in touch</a>
+      <section class="hero band-navy" id="top">
+        <div class="container hero-grid">
+          <div>
+            <p class="eyebrow mono">Full-stack developer · Technical writer</p>
+            <h1>Hi, I'm Polatkan Eren Polat.</h1>
+            <p class="lead">
+              I build web applications end to end, from REST APIs in Node.js and Express to
+              accessible frontends, and I document how they work so others can run, test and
+              extend them.
+            </p>
+            <div class="actions">
+              <a class="button" href="#projects">See my work</a>
+              <a class="button button-outline" href="#case-studies">Read a case study</a>
+            </div>
           </div>
+
+          <aside class="metrics" aria-labelledby="metrics-title">
+            <p class="metrics-head mono" id="metrics-title">Capstone build metrics</p>
+            <dl>
+              <div class="metric"><dt>API endpoints</dt><dd>4</dd></div>
+              <div class="metric"><dt>Automated tests</dt><dd>39</dd></div>
+              <div class="metric"><dt>Line coverage</dt><dd>100%</dd></div>
+              <div class="metric"><dt>Coverage target</dt><dd>70%</dd></div>
+            </dl>
+            <p class="metrics-foot mono">Source: docs/METRICS.md · Nov 2026</p>
+          </aside>
         </div>
       </section>
 
       <section class="section" id="projects" aria-labelledby="projects-title">
         <div class="container">
-          <h2 id="projects-title">Projects</h2>
+          <div class="section-head">
+            <div>
+              <p class="eyebrow mono">Projects</p>
+              <h2 id="projects-title">Selected work</h2>
+            </div>
+            <p>Each project links to its source code. Projects with a case study explain the decisions behind the code.</p>
+          </div>
           <div class="filters" id="filters" role="group" aria-label="Filter projects by technology"></div>
           <p class="status" id="projects-status" role="status">Loading projects…</p>
           <ul class="project-grid" id="project-list"></ul>
         </div>
       </section>
 
-      <section class="section section-alt" id="contact" aria-labelledby="contact-title">
-        <div class="container narrow">
-          <h2 id="contact-title">Contact</h2>
-          <p>Have a question or an opportunity? Send me a message.</p>
+      <section class="section section-paper" id="case-studies" aria-labelledby="case-studies-title">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow mono">Case studies</p>
+              <h2 id="case-studies-title">How I built it, and why</h2>
+            </div>
+            <p>Long-form write-ups covering the problem, the constraints, the decisions I made and what the numbers showed.</p>
+          </div>
 
-          <form id="contact-form" novalidate>
+          <article class="case-card">
+            <div class="case-body">
+              <p class="mono">Case study · 6 min read</p>
+              <h3>Building a documented full-stack portfolio in three weeks</h3>
+              <p>
+                How a single Express server became both the API and the website, why 100% line coverage
+                still missed a bug that broke the contact form, and how measurable goals shaped the
+                documentation.
+              </p>
+              <a class="button" href="case-studies/portfolio-capstone.html">Read the case study</a>
+            </div>
+            <dl class="case-facts">
+              <div><dt class="mono">Timeline</dt><dd>3 weeks, Nov 2026</dd></div>
+              <div><dt class="mono">Stack</dt><dd>Node.js, Express 5, JavaScript, Jest</dd></div>
+              <div><dt class="mono">Outcome</dt><dd>4 endpoints, 39 tests, CI on every push</dd></div>
+            </dl>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" id="skills" aria-labelledby="skills-title">
+        <div class="container">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow mono">Skills</p>
+              <h2 id="skills-title">Skills matrix</h2>
+            </div>
+            <p>Every skill links to the file that shows it. A filled box means there is evidence in this project's repository.</p>
+          </div>
+
+          <div class="table-wrap">
+            <table class="matrix">
+              <caption class="sr-only">Skills, where each is shown, and links to evidence</caption>
+              <thead>
+                <tr>
+                  <th scope="col">Skill</th>
+                  <th scope="col" class="center">Applied</th>
+                  <th scope="col" class="center">Verified</th>
+                  <th scope="col" class="center">Documented</th>
+                  <th scope="col">Evidence</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Node.js &amp; Express<span class="area">Backend</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/blob/main/src/app.js">src/app.js</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">REST API design<span class="area">Backend</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone#api-reference">README: API reference</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Web security basics<span class="area">Backend</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/blob/main/tests/app.test.js">tests/app.test.js</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">JavaScript in the browser<span class="area">Frontend</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box"></span><span class="sr-only">Not yet</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/blob/main/public/app.js">public/app.js</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Responsive HTML &amp; CSS<span class="area">Frontend</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box"></span><span class="sr-only">Not yet</span></td>
+                  <td class="center"><span class="box"></span><span class="sr-only">Not yet</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/blob/main/public/styles.css">public/styles.css</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Automated testing<span class="area">Quality</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/tree/main/tests">tests/</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Continuous integration<span class="area">Workflow</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/blob/main/.github/workflows/ci.yml">.github/workflows/ci.yml</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Git &amp; GitHub<span class="area">Workflow</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box box-na"></span><span class="sr-only">Not applicable</span></td>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone/pull/1">Pull request #1</a></td>
+                </tr>
+                <tr>
+                  <th scope="row">Technical writing<span class="area">Documentation</span></th>
+                  <td class="center"><span class="box box-yes"></span><span class="sr-only">Yes</span></td>
+                  <td class="center"><span class="box"></span><span class="sr-only">Not yet</span></td>
+                  <td class="center"><span class="box box-na"></span><span class="sr-only">Not applicable</span></td>
+                  <td class="evidence"><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone#readme">README</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <ul class="legend">
+            <li><span class="box box-yes"></span> <span><strong>Applied:</strong> used in real code or docs</span></li>
+            <li><span class="box box-yes"></span> <span><strong>Verified:</strong> checked by automated tests, CI or review</span></li>
+            <li><span class="box box-yes"></span> <span><strong>Documented:</strong> explained in the README or a case study</span></li>
+            <li><span class="box"></span> <span>Not yet</span></li>
+            <li><span class="box box-na"></span> <span>Not applicable</span></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section band-navy" id="contact" aria-labelledby="contact-title">
+        <div class="container contact-grid">
+          <div class="contact-intro">
+            <p class="eyebrow mono">Contact</p>
+            <h2 id="contact-title">Let's talk</h2>
+            <p>Have a question, feedback on a case study or an opportunity? Send me a message and I'll get back to you.</p>
+          </div>
+
+          <form class="contact-form" id="contact-form" novalidate>
             <div class="field">
               <label for="name">Name</label>
               <input id="name" name="name" type="text" autocomplete="name" maxlength="100" required />
@@ -86,10 +246,8 @@
 
     <footer class="site-footer">
       <div class="container">
-        <p>
-          © <span id="year"></span> Polatkan Eren Polat ·
-          <a href="https://github.com/polatkaneren/fullstack-portfolio-capstone">Source on GitHub</a>
-        </p>
+        <p>© <span id="year">2026</span> Polatkan Eren Polat</p>
+        <p><a href="https://github.com/polatkaneren/fullstack-portfolio-capstone">Source on GitHub</a></p>
       </div>
     </footer>
   </body>
