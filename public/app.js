@@ -25,19 +25,29 @@
   let activeTag = null;
 
   function renderCard(project) {
-    const children = [];
-    if (project.featured) children.push(el('span', { class: 'badge', text: 'Featured' }));
-    children.push(el('h3', { text: project.title }));
-    children.push(el('p', { text: project.summary }));
-    children.push(el('ul', { class: 'tags', 'aria-label': 'Technologies' },
-      project.tags.map((tag) => el('li', { text: tag }))));
+    const header = [];
+    if (project.featured) header.push(el('span', { class: 'badge mono', text: 'Featured' }));
+    header.push(el('h3', { text: project.title }));
+    header.push(el('p', { text: project.summary }));
+
+    const tags = el('ul', { class: 'tags', 'aria-label': 'Technologies' },
+      project.tags.map((tag) => el('li', { text: tag })));
 
     const links = [];
+    if (project.caseStudyUrl) links.push(el('a', { href: project.caseStudyUrl, text: 'Case study' }));
     if (project.liveUrl) links.push(el('a', { href: project.liveUrl, text: 'Live site' }));
-    if (project.repoUrl) links.push(el('a', { href: project.repoUrl, text: 'Code' }));
-    if (links.length) children.push(el('div', { class: 'links' }, links));
+    if (project.repoUrl) links.push(el('a', { href: project.repoUrl, text: 'Source code' }));
+    const footer = [tags];
+    if (links.length) footer.push(el('div', { class: 'links' }, links));
 
-    return el('li', {}, [el('article', { class: 'card' }, children)]);
+    const card = project.featured
+      ? el('article', { class: 'card card-featured' }, [
+          el('div', { class: 'card-main' }, header),
+          el('div', { class: 'card-side' }, footer),
+        ])
+      : el('article', { class: 'card' }, [...header, ...footer]);
+
+    return el('li', project.featured ? { class: 'is-featured' } : {}, [card]);
   }
 
   function renderProjects() {
@@ -49,6 +59,11 @@
   }
 
   function renderFilters() {
+    // Filtering a single project is pointless, so only show filters for 2+.
+    if (allProjects.length < 2) {
+      filtersEl.replaceChildren();
+      return;
+    }
     const tags = [...new Set(allProjects.flatMap((p) => p.tags))].sort();
     const buttons = [null, ...tags].map((tag) => {
       const button = el('button', {
